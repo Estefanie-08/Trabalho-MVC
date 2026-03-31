@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Potencial Distribuidora</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/sobre">Sobre</a>
+      <a href="/contato">Contato</a>
+      <a href="/produtos">Produtos</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Cadastro de Produtos</h2>
+    <p>Gerencie os produtos da Potencial Distribuidora de forma simples e organizada.</p>
+
+    <form action="/produtos" method="POST">
+      <input type="text" name="nome" placeholder="Nome do produto" required>
+      <button type="submit">Adicionar Produto</button>
+    </form>
+
+    <ul>
+      <% produtos.forEach(produto => { %>
+        <li>
+          <strong>ID:</strong> <%= produto.id %> |
+          <strong>Produto:</strong> <%= produto.nome %>
+
+          <a href="/produtos/editar/<%= produto.id %>">Editar</a>
+
+          <form action="/produtos/excluir/<%= produto.id %>" method="POST" style="display:inline;">
+            <button type="submit">Excluir</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+  </main>
+</body>
+</html>

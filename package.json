@@ -1,0 +1,13 @@
+{
+  "name": "trabalho-mvc",
+  "version": "1.0.0",
+  "description": "Projeto MVC com Node.js, Express e EJS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
