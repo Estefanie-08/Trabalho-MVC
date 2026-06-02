@@ -1,0 +1,343 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Produtos",
+    "description": "\n# API REST - Trabalho MVC\n\nEsta API permite gerenciar produtos e autenticar usuários.\n\n## Como usar\n1. Faça login na rota **/login** para criar uma sessão\n2. Use as rotas de Produtos para gerenciar o catálogo\n3. Faça logout na rota **/logout** quando terminar\n\n## Credenciais de teste\n- **Email:** admin@email.com\n- **Senha:** 1234\n    ",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Autenticação",
+      "description": "Rotas para login e logout de usuários"
+    },
+    {
+      "name": "Produtos",
+      "description": "Rotas para gerenciamento completo de produtos (CRUD)"
+    },
+    {
+      "name": "Páginas",
+      "description": "Rotas de páginas da aplicação (requerem autenticação)"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/login": {
+      "get": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Exibe a página de login",
+        "description": "Retorna a página HTML do formulário de login para o usuário preencher suas credenciais.",
+        "responses": {
+          "200": {
+            "description": "Página de login renderizada com sucesso."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Realiza o login do usuário",
+        "description": "Recebe email e senha no corpo da requisição. Se as credenciais forem válidas, cria uma sessão autenticada e redireciona para a página inicial. Caso contrário, retorna a página de login com uma mensagem de erro.",
+        "parameters": [
+          {
+            "name": "Credenciais",
+            "in": "body",
+            "required": true,
+            "description": "Email e senha do usuário cadastrado.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "admin@email.com"
+                },
+                "senha": {
+                  "type": "string",
+                  "example": "1234"
+                }
+              },
+              "required": [
+                "email",
+                "senha"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Login bem-sucedido. Redireciona para a página inicial (/)."
+          },
+          "401": {
+            "description": "Credenciais inválidas. Retorna a página de login com mensagem de erro: \"E-mail ou senha inválidos!\""
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Realiza o logout do usuário",
+        "description": "Encerra a sessão ativa do usuário, apaga o cookie de sessão e redireciona para a página de login.",
+        "responses": {
+          "302": {
+            "description": "Logout realizado com sucesso. Redireciona para /login."
+          },
+          "500": {
+            "description": "Erro interno ao tentar destruir a sessão."
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/sobre": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/contato": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/produtos": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Lista todos os produtos",
+        "description": "Retorna a página com todos os produtos cadastrados no sistema. Requer sessão autenticada.",
+        "responses": {
+          "200": {
+            "description": "Lista de produtos retornada com sucesso.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "array"
+                },
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "example": "object"
+                    },
+                    "properties": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "integer"
+                            },
+                            "example": {
+                              "type": "number",
+                              "example": 1
+                            }
+                          }
+                        },
+                        "nome": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "example": "string"
+                            },
+                            "example": {
+                              "type": "string",
+                              "example": "carne"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "302": {
+            "description": "Usuário não autenticado. Redireciona para /login."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Cria um novo produto",
+        "description": "Recebe o nome do produto no corpo da requisição, gera um ID automaticamente e adiciona o produto à lista. Redireciona para /produtos após a criação. Requer sessão autenticada.",
+        "parameters": [
+          {
+            "name": "Produto",
+            "in": "body",
+            "required": true,
+            "description": "Dados do produto a ser criado.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Arroz"
+                }
+              },
+              "required": [
+                "nome"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Produto criado com sucesso. Redireciona para /produtos."
+          },
+          "400": {
+            "description": "Requisição inválida. O campo \"nome\" é obrigatório."
+          },
+          "401": {
+            "description": "Usuário não autenticado. Redireciona para /login."
+          }
+        }
+      }
+    },
+    "/produtos/editar/{id}": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Exibe o formulário de edição de produto",
+        "description": "Busca o produto pelo ID informado na URL e retorna a página de edição com os dados atuais preenchidos. Requer sessão autenticada.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID numérico do produto a ser editado. Ex: 1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Formulário de edição retornado com sucesso com os dados do produto."
+          },
+          "302": {
+            "description": "Usuário não autenticado. Redireciona para /login."
+          },
+          "404": {
+            "description": "Produto com o ID informado não foi encontrado."
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Atualiza os dados de um produto",
+        "description": "Recebe o ID do produto via URL e o novo nome via corpo da requisição. Atualiza o produto correspondente e redireciona para /produtos. Requer sessão autenticada.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID numérico do produto a ser atualizado. Ex: 1"
+          },
+          {
+            "name": "Produto",
+            "in": "body",
+            "required": true,
+            "description": "Novo nome do produto.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "type": "string",
+                  "example": "Feijão"
+                }
+              },
+              "required": [
+                "nome"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Produto atualizado com sucesso. Redireciona para /produtos."
+          },
+          "400": {
+            "description": "Requisição inválida. O campo \"nome\" é obrigatório."
+          },
+          "401": {
+            "description": "Usuário não autenticado. Redireciona para /login."
+          },
+          "404": {
+            "description": "Produto com o ID informado não foi encontrado."
+          }
+        }
+      }
+    },
+    "/produtos/excluir/{id}": {
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Remove um produto",
+        "description": "Recebe o ID do produto via URL e remove ele permanentemente da lista. Redireciona para /produtos após a exclusão. Requer sessão autenticada. Atenção: esta ação não pode ser desfeita.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID numérico do produto a ser removido. Ex: 2"
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Produto removido com sucesso. Redireciona para /produtos."
+          },
+          "401": {
+            "description": "Usuário não autenticado. Redireciona para /login."
+          },
+          "404": {
+            "description": "Produto com o ID informado não foi encontrado."
+          }
+        }
+      }
+    }
+  }
+}
