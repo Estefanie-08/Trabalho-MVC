@@ -1,4 +1,4 @@
-#  API REST - Sistema de Gerenciamento de Produtos
+##  API REST - Sistema de Gerenciamento de Produtos
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Estefanie-08/Trabalho-MVC?style=for-the-badge)
 ![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-6ab04c?style=for-the-badge&logo=node.js)
@@ -57,7 +57,19 @@ npm install
 ```
 
 ---
+##  Variáveis de Ambiente
 
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+
+```env
+PORT=3000
+DB_HOST=localhost
+DB_USER=seu_usuario
+DB_PASS=sua_senha
+DB_NAME=nome_do_banco
+```
+
+---
 ##  Como Rodar
 
 ```bash
