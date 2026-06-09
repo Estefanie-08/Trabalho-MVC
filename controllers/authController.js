@@ -1,5 +1,16 @@
+/**
+ * @fileoverview Controller responsável por interceptar as requisições HTTP
+ * relacionadas à autenticação de usuários (login e logout).
+ */
+
 const User = require('../models/User');
 
+/**
+ * Renderiza a página de login.
+ * @param {import('express').Request} req - Objeto de requisição do Express.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Renderiza a view 'login' sem mensagem de erro.
+ */
 exports.getLogin = (req, res) => {
   /*
     #swagger.tags = ['Autenticação']
@@ -12,6 +23,14 @@ exports.getLogin = (req, res) => {
   res.render('login', { erro: null });
 };
 
+/**
+ * Realiza a autenticação do usuário com base no email e senha recebidos.
+ * Se as credenciais forem válidas, cria uma sessão e redireciona para a página inicial.
+ * Caso contrário, retorna a página de login com mensagem de erro.
+ * @param {import('express').Request} req - Objeto de requisição do Express. Espera { email, senha } no req.body.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Redireciona para / em caso de sucesso ou renderiza 'login' com erro.
+ */
 exports.postLogin = (req, res) => {
   /*
     #swagger.tags = ['Autenticação']
@@ -42,9 +61,16 @@ exports.postLogin = (req, res) => {
     return res.redirect('/');
   }
 
+  // TODO: Implementar criptografia de senha com bcrypt para maior segurança
   res.render('login', { erro: 'E-mail ou senha inválidos!' });
 };
 
+/**
+ * Encerra a sessão ativa do usuário e redireciona para a página de login.
+ * @param {import('express').Request} req - Objeto de requisição do Express.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Redireciona para /login após destruir a sessão e limpar o cookie.
+ */
 exports.logout = (req, res) => {
   /*
     #swagger.tags = ['Autenticação']
@@ -57,6 +83,7 @@ exports.logout = (req, res) => {
       description: 'Erro interno ao tentar destruir a sessão.'
     }
   */
+  // FIXME: Adicionar tratamento de erro caso a sessão já tenha expirado
   req.session.destroy(() => {
     res.clearCookie('connect.sid');
     res.redirect('/login');

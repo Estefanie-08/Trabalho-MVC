@@ -1,5 +1,17 @@
+/**
+ * @fileoverview Controller responsável por interceptar as requisições HTTP
+ * relacionadas aos produtos e orquestrar as respostas da aplicação.
+ */
+
 const produtoModel = require("../models/produtoModel");
 
+/**
+ * Lista todos os produtos cadastrados e renderiza a página de produtos.
+ * @async
+ * @param {import('express').Request} req - Objeto de requisição do Express.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Renderiza a view 'produtos' com a lista de produtos.
+ */
 function listarProdutos(req, res) {
   /*
     #swagger.tags = ['Produtos']
@@ -26,6 +38,12 @@ function listarProdutos(req, res) {
   res.render("produtos", { produtos });
 }
 
+/**
+ * Cria um novo produto a partir dos dados recebidos no corpo da requisição.
+ * @param {import('express').Request} req - Objeto de requisição do Express. Espera { nome } no req.body.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Redireciona para /produtos após a criação.
+ */
 function criarProduto(req, res) {
   /*
     #swagger.tags = ['Produtos']
@@ -55,6 +73,12 @@ function criarProduto(req, res) {
   res.redirect("/produtos");
 }
 
+/**
+ * Busca um produto pelo ID e renderiza o formulário de edição com os dados atuais.
+ * @param {import('express').Request} req - Objeto de requisição do Express. Espera o ID em req.params.id.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Renderiza a view 'editarProduto' com os dados do produto encontrado.
+ */
 function formEditarProduto(req, res) {
   /*
     #swagger.tags = ['Produtos']
@@ -81,6 +105,12 @@ function formEditarProduto(req, res) {
   res.render("editarProduto", { produto });
 }
 
+/**
+ * Atualiza o nome de um produto existente com base no ID informado na URL.
+ * @param {import('express').Request} req - Objeto de requisição do Express. Espera o ID em req.params.id e { nome } no req.body.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Redireciona para /produtos após a atualização.
+ */
 function editarProduto(req, res) {
   /*
     #swagger.tags = ['Produtos']
@@ -120,6 +150,12 @@ function editarProduto(req, res) {
   res.redirect("/produtos");
 }
 
+/**
+ * Remove um produto da lista com base no ID informado na URL.
+ * @param {import('express').Request} req - Objeto de requisição do Express. Espera o ID em req.params.id.
+ * @param {import('express').Response} res - Objeto de resposta do Express.
+ * @returns {void} Redireciona para /produtos após a exclusão.
+ */
 function excluirProduto(req, res) {
   /*
     #swagger.tags = ['Produtos']
@@ -142,6 +178,7 @@ function excluirProduto(req, res) {
       description: 'Usuário não autenticado. Redireciona para /login.'
     }
   */
+  // FIXME: Adicionar verificação se o produto existe antes de tentar excluir
   produtoModel.excluirProduto(req.params.id);
   res.redirect("/produtos");
 }
