@@ -80,14 +80,6 @@ O servidor vai iniciar em: `http://localhost:3000`
 
 ---
 
-##  Documentação Swagger
-
-Com o servidor rodando, acesse:
-
- **http://localhost:3000/api-docs**
-
----
-
 ##  Autora
 
 * **Estefanie Cardozo** — [GitHub](https://github.com/Estefanie-08)
