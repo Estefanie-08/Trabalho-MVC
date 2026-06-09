@@ -1,4 +1,4 @@
-# 🚀 API REST - Sistema de Gerenciamento de Produtos
+#  API REST - Sistema de Gerenciamento de Produtos
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Estefanie-08/Trabalho-MVC?style=for-the-badge)
 ![Node.js](https://img.shields.io/badge/node-%3E%3D18.0.0-6ab04c?style=for-the-badge&logo=node.js)
@@ -9,7 +9,7 @@ Projeto desenvolvido durante as aulas de Back-end.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 
 * **Runtime:** Node.js
 * **Framework:** Express
@@ -19,7 +19,7 @@ Projeto desenvolvido durante as aulas de Back-end.
 
 ---
 
-## ✨ Funcionalidades
+##  Funcionalidades
 
 - [x] Autenticação de usuários (Login e Logout)
 - [x] Cadastro de produtos
@@ -31,7 +31,7 @@ Projeto desenvolvido durante as aulas de Back-end.
 
 ---
 
-## 📦 Como Executar o Projeto
+##  Como Executar o Projeto
 
 ### Pré-requisitos
 
@@ -58,7 +58,7 @@ npm install
 
 ---
 
-## 🚀 Como Rodar
+##  Como Rodar
 
 ```bash
 node server.js
@@ -68,14 +68,14 @@ O servidor vai iniciar em: `http://localhost:3000`
 
 ---
 
-## 📖 Documentação Swagger
+##  Documentação Swagger
 
 Com o servidor rodando, acesse:
 
-📌 **http://localhost:3000/api-docs**
+ **http://localhost:3000/api-docs**
 
 ---
 
-## ✒️ Autora
+##  Autora
 
 * **Estefanie Cardozo** — [GitHub](https://github.com/Estefanie-08)
